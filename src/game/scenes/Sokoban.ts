@@ -14,7 +14,7 @@ export class Sokoban extends Phaser.Scene {
   }
 
   create() {
-    const map = this.make.tilemap(JSONMap);
+    const map = this.make.tilemap(JSONMap.mapdata);
     const tileset = map.addTilesetImage('tiles', undefined, 32, 32, 1, 2)!;
     const layer = map.createLayer(0, tileset, 0, 0)!;
     const startTile = map.findTile(
