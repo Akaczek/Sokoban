@@ -21,6 +21,7 @@ const MOVES = {
 
 export const move = (
   map: Phaser.Tilemaps.Tilemap,
+  eventEmitter: Phaser.Events.EventEmitter,
   direction: 'up' | 'down' | 'left' | 'right',
 ) => {
   const move = MOVES[direction];
@@ -40,6 +41,7 @@ export const move = (
         map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y);
         map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y);
         map.putTileAt(OBJECTS_MAPPING.pushableBox, player.x + move.x * 2, player.y + move.y * 2);
+        eventEmitter.emit('checkWin');
       }
     }
   }
