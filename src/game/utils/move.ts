@@ -3,50 +3,44 @@ import { OBJECTS_MAPPING } from './constants';
 const MOVES = {
   up: {
     x: 0,
-    y: -32,
-    angle: -90,
+    y: -1,
   },
   down: {
     x: 0,
-    y: 32,
-    angle: 90,
+    y: 1,
   },
   left: {
-    x: -32,
+    x: -1,
     y: 0,
-    angle: 180,
   },
   right: {
-    x: 32,
+    x: 1,
     y: 0,
-    angle: 0,
   },
 };
 
 export const move = (
-  layer: Phaser.Tilemaps.TilemapLayer,
-  player: Phaser.GameObjects.Image,
+  map: Phaser.Tilemaps.Tilemap,
   direction: 'up' | 'down' | 'left' | 'right',
 ) => {
   const move = MOVES[direction];
-  const tile = layer.getTileAtWorldXY(player.x + move.x, player.y + move.y, true);
-  const nextTile = layer.getTileAtWorldXY(player.x + move.x * 2, player.y + move.y * 2, true);
+  const player = map.findByIndex(OBJECTS_MAPPING.player);
+  const nextTile = map.getTileAt(player!.x + move.x, player!.y + move.y, true);
 
-  if (
-    tile.index === OBJECTS_MAPPING.blockA ||
-    tile.index === OBJECTS_MAPPING.blockB ||
-    (tile.index === OBJECTS_MAPPING.pushableBox && nextTile.index === OBJECTS_MAPPING.blockA) ||
-    (tile.index === OBJECTS_MAPPING.pushableBox && nextTile.index === OBJECTS_MAPPING.blockB) ||
-    (tile.index === OBJECTS_MAPPING.pushableBox && nextTile.index === OBJECTS_MAPPING.pushableBox)
-  ) {
-    player.angle = move.angle;
-  } else {
-    if (tile.index === OBJECTS_MAPPING.pushableBox) {
-      layer.putTileAt(OBJECTS_MAPPING.empty, tile.x, tile.y);
-      layer.putTileAt(OBJECTS_MAPPING.pushableBox, nextTile.x, nextTile.y);
+  if (nextTile && player) {
+    if (nextTile.index === OBJECTS_MAPPING.empty) {
+      map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y);
+      map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y);
+      return;
     }
-    player.x += move.x;
-    player.y += move.y;
-    player.angle = move.angle;
+
+    if (nextTile.index === OBJECTS_MAPPING.pushableBox) {
+      const nextNextTile = map.getTileAt(player.x + move.x * 2, player.y + move.y * 2, true);
+      if (nextNextTile && nextNextTile.index === OBJECTS_MAPPING.empty) {
+        map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y);
+        map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y);
+        map.putTileAt(OBJECTS_MAPPING.pushableBox, player.x + move.x * 2, player.y + move.y * 2);
+      }
+    }
   }
 };
