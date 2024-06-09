@@ -1,11 +1,13 @@
-import { OBJECTS_MAPPING } from './constants';
+import { OBJECTS_MAPPING } from "./constants";
 
 export const checkWin = (map: Phaser.Tilemaps.Tilemap) => {
   const mapLayer = map.getLayer("map");
   const goalLayer = map.getLayer("goal");
 
   const boxTiles = mapLayer?.data.reduce((acc, row) => {
-    const boxes = row.filter((tile) => tile.index === OBJECTS_MAPPING.pushableBox);
+    const boxes = row.filter(
+      (tile) => tile.index === OBJECTS_MAPPING.pushableBox
+    );
     return acc.concat(boxes);
   }, [] as Phaser.Tilemaps.Tile[]);
 
@@ -23,7 +25,7 @@ export const checkWin = (map: Phaser.Tilemaps.Tilemap) => {
         }
         return false;
       });
-      
+
       if (!isGoalTaken) {
         win = false;
         break;

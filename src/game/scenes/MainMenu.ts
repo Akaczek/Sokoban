@@ -1,29 +1,33 @@
-import { GameObjects, Scene } from 'phaser';
+import { GameObjects, Scene } from "phaser";
+import { theme } from "../../theme/theme";
+import { EventBus } from '../EventBus';
 
-export class MainMenu extends Scene
-{
-    background: GameObjects.Image;
-    logo: GameObjects.Image;
-    title: GameObjects.Text;
-    logoTween: Phaser.Tweens.Tween | null;
+export class MainMenu extends Scene {
+  background: GameObjects.Image;
+  logo: GameObjects.Image;
+  title: GameObjects.Text;
 
-    constructor ()
-    {
-        super('MainMenu');
-    }
+  constructor() {
+    super("MainMenu");
+  }
 
-    create ()
-    {
-    }
-    
-    changeScene ()
-    {
-        if (this.logoTween)
-        {
-            this.logoTween.stop();
-            this.logoTween = null;
-        }
+  create() {
+    this.cameras.main.setBackgroundColor(theme.color.honeydew);
 
-        this.scene.start('Game');
-    }
+    const chooseLevelText = this.add.text(400, 300, "Choose a level", {
+      fontSize: "64px",
+      color: theme.color.primaryBlue,
+    });
+    chooseLevelText.setOrigin(0.5, 0.5);
+    chooseLevelText.setPosition(
+      this.cameras.main.centerX,
+      this.cameras.main.centerY - 100
+    );
+
+    EventBus.on('start-game', this.changeScene, this);
+  }
+
+  changeScene() {
+    this.scene.start("Sokoban");
+  }
 }
