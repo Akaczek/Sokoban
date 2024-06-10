@@ -1,21 +1,17 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 
-import {
-  SubMenuContainer,
-  SubMenuButton,
-  SubMenuTitle,
-} from "./SubMenu.styles";
-import { EventBus } from "../../game/EventBus";
+import { PhaseContext } from "../../libs/context/usePhase";
+import { ChooseLevel } from "./ChooseLevel";
+import { DuringGame } from "./DuringGame";
+import { SubMenuContainer } from "./SubMenu.styles";
 
 const SubMenu: FC = () => {
-  const startGame = () => {
-    EventBus.emit("start-game");
-  };
+  const { phase } = useContext(PhaseContext);
 
   return (
     <SubMenuContainer>
-      <SubMenuTitle>Sub Menu</SubMenuTitle>
-      <SubMenuButton onClick={startGame}>Start Game</SubMenuButton>
+      {phase === "main-menu" && <ChooseLevel />}
+      {phase === "during-game" && <DuringGame />}
     </SubMenuContainer>
   );
 };

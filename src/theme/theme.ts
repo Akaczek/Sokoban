@@ -11,6 +11,12 @@ export const theme = {
     calPolyGreen: "#214e34",
     honeydew: "#ffefd5",
   },
+  mq: {
+    small: "576px",
+    medium: "768px",
+    large: "992px",
+    extraLarge: "1200px",
+  },
 };
 
 export type ThemeType = typeof theme;

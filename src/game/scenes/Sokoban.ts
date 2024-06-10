@@ -2,6 +2,7 @@ import { car } from "../assets/imgs";
 import { move } from "../utils/move";
 import map2 from "../assets/maps/mapa.json";
 import { checkWin } from "../utils/checkWin";
+import { EventBus } from '../EventBus';
 
 export class Sokoban extends Phaser.Scene {
   map: Phaser.Tilemaps.Tilemap;
@@ -74,6 +75,10 @@ export class Sokoban extends Phaser.Scene {
       if (checkWin(this.map)) {
         this.scene.start("Win");
       }
+    });
+
+    EventBus.on('control-move', (direction: string) => {
+      move(this.map, this.eventEmitter, direction as 'up' | 'down' | 'left' | 'right');
     });
 
     const cameraWidth = this.cameras.main.width;

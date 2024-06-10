@@ -6,23 +6,12 @@ export const SubMenuContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.color.honeydew};
-  margin-right: 20px;
+  margin: 0 20px 0 60px;
   padding: 20px;
   border-radius: 10px;
-`;
 
-export const SubMenuTitle = styled.h1`
-  font-size: 36px;
-  color: ${({ theme }) => theme.color.primaryBlue};
-`;
-
-export const SubMenuButton = styled.button`
-  font-size: 18px;
-  padding: 6px 12px;
-  margin-top: 12px;
-  background-color: ${({ theme }) => theme.color.secondaryBlue};
-  color: ${({ theme }) => theme.color.honeydew};
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+  @media (max-width: ${({ theme }) => theme.mq.medium}) {
+    margin: 0 20px;
+    width: 100%;
+  }
 `;

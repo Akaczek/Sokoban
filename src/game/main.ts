@@ -10,9 +10,13 @@ import { Win } from "./scenes/Win";
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Phaser.Types.Core.GameConfig = {
   type: AUTO,
-  width: 900,
-  height: 600,
-  parent: "game-container",
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    parent: "game-container",
+    width: 1000,
+    height: 1000,
+  },
   scene: [Boot, Preloader, MainMenu, GameOver, Sokoban, Win],
 };
 
