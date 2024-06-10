@@ -28,6 +28,7 @@ export class MainMenu extends Scene {
   }
 
   changeScene() {
-    this.scene.start("Sokoban");
+    this.scene.stop('Sokoban');
+    this.scene.start('Sokoban');
   }
 }

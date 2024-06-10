@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 
+import { PhaseContext } from '../../../libs/context/usePhase';
 import {
   RestartButton,
   ControlsContainer,
@@ -8,8 +9,15 @@ import {
 import { EventBus } from "../../../game/EventBus";
 
 const DuringGame: FC = () => {
+  const { setPhase } = useContext(PhaseContext);
+
   const move = (direction: string) => {
     EventBus.emit("control-move", direction);
+  };
+
+  const startGame = () => {
+    setPhase("during-game");
+    EventBus.emit("restart-game");
   };
 
   return (
@@ -28,7 +36,9 @@ const DuringGame: FC = () => {
           Down
         </ControlButton>
       </ControlsContainer>
-      <RestartButton>Restart</RestartButton>
+      <RestartButton onClick={startGame}>
+        Restart
+      </RestartButton>
     </>
   );
 };

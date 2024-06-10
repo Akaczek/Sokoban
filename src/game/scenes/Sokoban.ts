@@ -81,6 +81,10 @@ export class Sokoban extends Phaser.Scene {
       move(this.map, this.eventEmitter, direction as 'up' | 'down' | 'left' | 'right');
     });
 
+    EventBus.on('restart-game', () => {
+      this.scene.restart();
+    });
+
     const cameraWidth = this.cameras.main.width;
     const cameraHeight = this.cameras.main.height;
 
@@ -92,5 +96,12 @@ export class Sokoban extends Phaser.Scene {
       (-cameraHeight + mapHeight) / 2
     );
     this.cameras.main.setZoom(cameraHeight / mapHeight);
+
+    this.events.on("shutdown", this.destroy, this);
+  }
+
+  destroy() {
+    this.eventEmitter.removeAllListeners();
+    EventBus.removeAllListeners();
   }
 }
