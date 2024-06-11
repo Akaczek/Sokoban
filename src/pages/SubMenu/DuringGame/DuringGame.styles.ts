@@ -11,6 +11,12 @@ export const RestartButton = styled.button`
   cursor: pointer;
 `;
 
+export const Title = styled.h1`
+  font-size: 36px;
+  color: ${({ theme }) => theme.color.primaryBlue};
+  white-space: nowrap;
+`;
+
 export const ControlsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -21,6 +27,8 @@ export const ControlsContainer = styled.div`
   @media (min-width: ${({ theme }) => theme.mq.medium}) {
     display: none;
   }
+
+  margin-bottom: 20px;
 `;
 
 export const ControlButton = styled.button<{

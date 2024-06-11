@@ -5,6 +5,7 @@ import {
   RestartButton,
   ControlsContainer,
   ControlButton,
+  Title,
 } from "./DuringGame.styles";
 import { EventBus } from "../../../game/EventBus";
 
@@ -22,6 +23,7 @@ const DuringGame: FC = () => {
 
   return (
     <>
+      <Title>Soko-puzzle</Title>
       <ControlsContainer>
         <ControlButton direction="left" onClick={() => move("left")}>
           Left

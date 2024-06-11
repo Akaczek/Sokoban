@@ -10,7 +10,7 @@ export class Win extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
 
     const winText = this.add.text(400, 300, "You Win!", {
-      fontSize: "64px",
+      fontSize: "100px",
       color: theme.color.primaryBlue,
     });
     winText.setOrigin(0.5, 0.5);
@@ -24,7 +24,7 @@ export class Win extends Phaser.Scene {
       400,
       "Press SPACE or click this text to restart",
       {
-        fontSize: "24px",
+        fontSize: "36px",
         color: theme.color.primaryBlue,
       }
     );
