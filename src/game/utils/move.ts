@@ -27,6 +27,7 @@ export const move = (
   const move = MOVES[direction];
   const player = map.findByIndex(OBJECTS_MAPPING.player);
   const nextTile = map.getTileAt(player!.x + move.x, player!.y + move.y, true);
+  const nextTileOnColored = map.getTileAt(player!.x + move.x, player!.y + move.y, true, 'blocks_colored');
 
   if (nextTile && player) {
     if (nextTile.index === OBJECTS_MAPPING.empty) {
@@ -37,10 +38,12 @@ export const move = (
 
     if (nextTile.index === OBJECTS_MAPPING.pushableBox) {
       const nextNextTile = map.getTileAt(player.x + move.x * 2, player.y + move.y * 2, true);
-      if (nextNextTile && nextNextTile.index === OBJECTS_MAPPING.empty) {
+      if (nextNextTile && nextTileOnColored && nextNextTile.index === OBJECTS_MAPPING.empty) {
         map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y);
         map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y);
         map.putTileAt(OBJECTS_MAPPING.pushableBox, player.x + move.x * 2, player.y + move.y * 2);
+        map.putTileAt(nextTileOnColored.index, player.x + move.x * 2, player.y + move.y * 2, true, 'blocks_colored');
+        map.putTileAt(OBJECTS_MAPPING.empty, player.x + move.x, player.y + move.y, true, 'blocks_colored');
         eventEmitter.emit('checkWin');
       }
     }
