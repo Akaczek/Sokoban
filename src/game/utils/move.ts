@@ -1,6 +1,7 @@
 import { OBJECTS_MAPPING } from './constants';
+import { checkForDeadlocks } from './deadlocks';
 
-const MOVES = {
+export const MOVES = {
   up: {
     x: 0,
     y: -1,
@@ -44,6 +45,12 @@ export const move = (
         map.putTileAt(OBJECTS_MAPPING.pushableBox, player.x + move.x * 2, player.y + move.y * 2);
         map.putTileAt(nextTileOnColored.index, player.x + move.x * 2, player.y + move.y * 2, true, 'blocks_colored');
         map.putTileAt(OBJECTS_MAPPING.empty, player.x + move.x, player.y + move.y, true, 'blocks_colored');
+        
+        const pushedBox = map.getTileAt(player.x + move.x * 2, player.y + move.y * 2, true);
+        if (pushedBox) {
+          checkForDeadlocks(map, pushedBox);
+        }
+
         eventEmitter.emit('checkWin');
       }
     }

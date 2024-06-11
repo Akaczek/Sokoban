@@ -24,8 +24,6 @@ export const checkWin = (map: Phaser.Tilemaps.Tilemap) => {
     return acc.concat(colored_blocks);
   }, [] as Phaser.Tilemaps.Tile[]);
 
-  console.log(goalTiles?.length, boxTiles?.length, coloredBlocks?.length);
-
   let win = true;
   if (goalTiles && boxTiles && coloredBlocks && goalTiles.length === boxTiles.length) {
     for (let i = 0; i < goalTiles.length; i++) {

@@ -10,6 +10,7 @@ export const theme = {
     black: "#000",
     calPolyGreen: "#214e34",
     honeydew: "#ffefd5",
+    red: "#ff0000",
   },
   mq: {
     small: "576px",
