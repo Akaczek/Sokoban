@@ -7,12 +7,15 @@ import { EventBus } from '../EventBus';
 export class Sokoban extends Phaser.Scene {
   map: Phaser.Tilemaps.Tilemap;
   mapLayer: Phaser.Tilemaps.TilemapLayer | null;
-  goalLayer: Phaser.Tilemaps.TilemapLayer | null;
   blocksColoredLayer: Phaser.Tilemaps.TilemapLayer | null;
   eventEmitter: Phaser.Events.EventEmitter;
 
   constructor() {
     super("Sokoban");
+  }
+
+  init(data: any) {
+    console.log("init", data);
   }
 
   preload() {
@@ -25,12 +28,10 @@ export class Sokoban extends Phaser.Scene {
 
     this.map = this.make.tilemap({ key: "map" });
     const tiles = this.map.addTilesetImage("tiles");
-    if (tiles) {
+    const picture = this.map.addTilesetImage("blocks");
+    if (tiles && picture) {
       this.mapLayer = this.map.createLayer("map", tiles);
-      this.goalLayer = this.map.createLayer("goal", tiles);
-      this.blocksColoredLayer = this.map.createLayer("blocks_colored", tiles);
-      // this.goalLayer?.setVisible(false);
-      // this.blocksColoredLayer?.setVisible(false);
+      this.blocksColoredLayer = this.map.createLayer("blocks_colored", picture);
     }
     if (this.mapLayer) {
       this.mapLayer.depth = 1;
@@ -71,11 +72,11 @@ export class Sokoban extends Phaser.Scene {
       });
     }
 
-    this.eventEmitter.on("checkWin", () => {
-      if (checkWin(this.map)) {
-        this.scene.start("Win");
-      }
-    });
+    // this.eventEmitter.on("checkWin", () => {
+    //   if (checkWin(this.map)) {
+    //     this.scene.start("Win");
+    //   }
+    // });
 
     EventBus.on('control-move', (direction: string) => {
       move(this.map, this.eventEmitter, direction as 'up' | 'down' | 'left' | 'right');
@@ -102,6 +103,5 @@ export class Sokoban extends Phaser.Scene {
 
   destroy() {
     this.eventEmitter.removeAllListeners();
-    EventBus.removeAllListeners();
   }
 }

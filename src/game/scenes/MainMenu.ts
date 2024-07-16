@@ -27,8 +27,8 @@ export class MainMenu extends Scene {
     EventBus.on('start-game', this.changeScene, this);
   }
 
-  changeScene() {
+  changeScene(level: number) {
     this.scene.stop('Sokoban');
-    this.scene.start('Sokoban');
+    this.scene.start('Sokoban', { level });
   }
 }
