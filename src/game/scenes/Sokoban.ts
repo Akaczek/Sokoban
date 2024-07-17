@@ -14,7 +14,7 @@ export class Sokoban extends Phaser.Scene {
     super("Sokoban");
   }
 
-  init(data: any) {
+  init(data: { level: number }) {
     console.log("init", data);
   }
 
@@ -26,6 +26,7 @@ export class Sokoban extends Phaser.Scene {
   create() {
     this.eventEmitter = new Phaser.Events.EventEmitter();
 
+    // load map
     this.map = this.make.tilemap({ key: "map" });
     const tiles = this.map.addTilesetImage("tiles");
     const picture = this.map.addTilesetImage("blocks");
@@ -38,6 +39,7 @@ export class Sokoban extends Phaser.Scene {
       this.map.setLayer(this.mapLayer);
     }
 
+    // controls
     if (this.input.keyboard) {
       //  Left
       this.input.keyboard.on("keydown-A", () => {
@@ -72,11 +74,11 @@ export class Sokoban extends Phaser.Scene {
       });
     }
 
-    // this.eventEmitter.on("checkWin", () => {
-    //   if (checkWin(this.map)) {
-    //     this.scene.start("Win");
-    //   }
-    // });
+    this.eventEmitter.on("checkWin", () => {
+      if (checkWin(this.map)) {
+        this.scene.start("Win");
+      }
+    });
 
     EventBus.on('control-move', (direction: string) => {
       move(this.map, this.eventEmitter, direction as 'up' | 'down' | 'left' | 'right');
@@ -86,6 +88,7 @@ export class Sokoban extends Phaser.Scene {
       this.scene.restart();
     });
 
+    // camera setting
     const cameraWidth = this.cameras.main.width;
     const cameraHeight = this.cameras.main.height;
 

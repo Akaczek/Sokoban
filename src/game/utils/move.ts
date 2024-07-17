@@ -42,6 +42,8 @@ export const move = (
       map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y, true, 'map');
       map.putTileAt(nextTileOnColored.index, player.x + move.x * 2, player.y + move.y * 2, true, 'blocks_colored');
       map.putTileAt(OBJECTS_MAPPING.empty, player.x + move.x, player.y + move.y, true, 'blocks_colored');
+
+      eventEmitter.emit('checkWin');
     }
   }
 }
