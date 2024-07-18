@@ -1,4 +1,5 @@
 import { theme } from "../../theme/theme";
+import { EventBus } from '../EventBus';
 
 export class Win extends Phaser.Scene {
   constructor() {
@@ -37,11 +38,13 @@ export class Win extends Phaser.Scene {
     restartText.setInteractive();
     restartText.on("pointerdown", () => {
       this.scene.start("MainMenu");
+      EventBus.emit('restartFromWin');
     });
 
     if (this.input.keyboard) {
       this.input.keyboard.once("keydown-SPACE", () => {
         this.scene.start("MainMenu");
+        EventBus.emit('restartFromWin');
       });
     }
   }
