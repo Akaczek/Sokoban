@@ -19,6 +19,11 @@ export const ChangeLevelButton = styled.button`
   border: none;
   border-radius: 3px;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 `;
 
 export const LevelNumber = styled.span`

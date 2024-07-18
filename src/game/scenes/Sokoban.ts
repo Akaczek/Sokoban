@@ -1,6 +1,5 @@
-import { car } from "../assets/imgs";
 import { move } from "../utils/move";
-import map2 from "../assets/maps/mapa.json";
+import levels from '../assets/maps';
 import { checkWin } from "../utils/checkWin";
 import { EventBus } from '../EventBus';
 
@@ -9,18 +8,20 @@ export class Sokoban extends Phaser.Scene {
   mapLayer: Phaser.Tilemaps.TilemapLayer | null;
   blocksColoredLayer: Phaser.Tilemaps.TilemapLayer | null;
   eventEmitter: Phaser.Events.EventEmitter;
+  chosenLevel: number;
 
   constructor() {
     super("Sokoban");
+    this.chosenLevel = 0;
   }
 
   init(data: { level: number }) {
-    console.log("init", data);
+    this.chosenLevel = data.level;
   }
 
   preload() {
-    this.load.image("car", car);
-    this.load.tilemapTiledJSON("map", map2);
+    this.load.tilemapTiledJSON("map", levels[this.chosenLevel].map);
+    this.load.image("blocks", levels[this.chosenLevel].tileset);
   }
 
   create() {

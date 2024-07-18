@@ -1,4 +1,4 @@
-import { OBJECTS_MAPPING } from './constants';
+import { OBJECTS_MAPPING } from "./constants";
 
 export const MOVES = {
   up: {
@@ -22,28 +22,72 @@ export const MOVES = {
 export const move = (
   map: Phaser.Tilemaps.Tilemap,
   eventEmitter: Phaser.Events.EventEmitter,
-  direction: 'up' | 'down' | 'left' | 'right',
+  direction: "up" | "down" | "left" | "right"
 ) => {
   const move = MOVES[direction];
   const player = map.findByIndex(OBJECTS_MAPPING.player);
   const nextTile = map.getTileAt(player!.x + move.x, player!.y + move.y, true);
-  const nextTileOnColored = map.getTileAt(player!.x + move.x, player!.y + move.y, true, 'blocks_colored');
+  const nextTileOnColored = map.getTileAt(
+    player!.x + move.x,
+    player!.y + move.y,
+    true,
+    "blocks_colored"
+  );
 
   if (nextTile && nextTileOnColored && player) {
-    if (nextTileOnColored.index === OBJECTS_MAPPING.empty) {
+    if (
+      nextTileOnColored.index === OBJECTS_MAPPING.empty &&
+      nextTile.index === OBJECTS_MAPPING.empty
+    ) {
       map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y);
-      map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y);
+      map.putTileAt(
+        OBJECTS_MAPPING.player,
+        player.x + move.x,
+        player.y + move.y
+      );
       return;
     }
 
-    const nextNextTileOnColored = map.getTileAt(player.x + move.x * 2, player.y + move.y * 2, true, 'blocks_colored');
-    if (nextNextTileOnColored && nextNextTileOnColored.index === OBJECTS_MAPPING.empty) {   
-      map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y, true, 'map');
-      map.putTileAt(OBJECTS_MAPPING.player, player.x + move.x, player.y + move.y, true, 'map');
-      map.putTileAt(nextTileOnColored.index, player.x + move.x * 2, player.y + move.y * 2, true, 'blocks_colored');
-      map.putTileAt(OBJECTS_MAPPING.empty, player.x + move.x, player.y + move.y, true, 'blocks_colored');
+    const nextNextTileOnColored = map.getTileAt(
+      player.x + move.x * 2,
+      player.y + move.y * 2,
+      true,
+      "blocks_colored"
+    );
+    const nextNextTile = map.getTileAt(
+      player.x + move.x * 2,
+      player.y + move.y * 2,
+      true
+    );
+    if (
+      nextNextTileOnColored &&
+      nextNextTileOnColored.index === OBJECTS_MAPPING.empty &&
+      nextNextTile?.index === OBJECTS_MAPPING.empty
+    ) {
+      map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y, true, "map");
+      map.putTileAt(
+        OBJECTS_MAPPING.player,
+        player.x + move.x,
+        player.y + move.y,
+        true,
+        "map"
+      );
+      map.putTileAt(
+        nextTileOnColored.index,
+        player.x + move.x * 2,
+        player.y + move.y * 2,
+        true,
+        "blocks_colored"
+      );
+      map.putTileAt(
+        OBJECTS_MAPPING.empty,
+        player.x + move.x,
+        player.y + move.y,
+        true,
+        "blocks_colored"
+      );
 
-      eventEmitter.emit('checkWin');
+      eventEmitter.emit("checkWin");
     }
   }
-}
+};

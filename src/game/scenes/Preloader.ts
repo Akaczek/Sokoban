@@ -1,6 +1,5 @@
 import { Scene } from "phaser";
-import { car, tileset } from "../assets/imgs";
-import picture from "../assets/maps/puzzle01/pzl01.png";
+import { tileset } from "../assets/imgs";
 
 export class Preloader extends Scene {
   constructor() {
@@ -24,8 +23,6 @@ export class Preloader extends Scene {
   preload() {
     //  Load the assets for the game - Replace with your own assets
     this.load.image("tiles", tileset);
-    this.load.image("blocks", picture);
-    this.load.image("car", car);
   }
 
   create() {

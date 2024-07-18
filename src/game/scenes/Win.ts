@@ -36,12 +36,12 @@ export class Win extends Phaser.Scene {
 
     restartText.setInteractive();
     restartText.on("pointerdown", () => {
-      this.scene.start("Sokoban");
+      this.scene.start("MainMenu");
     });
 
     if (this.input.keyboard) {
       this.input.keyboard.once("keydown-SPACE", () => {
-        this.scene.start("Sokoban");
+        this.scene.start("MainMenu");
       });
     }
   }
