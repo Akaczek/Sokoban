@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import { tileset } from "../assets/imgs";
+import levels from '../assets/maps';
 
 export class Preloader extends Scene {
   constructor() {
@@ -23,6 +24,10 @@ export class Preloader extends Scene {
   preload() {
     //  Load the assets for the game - Replace with your own assets
     this.load.image("tiles", tileset);
+    levels.forEach((level, index) => {
+      this.load.tilemapTiledJSON(`map${index+1}`, level.map);
+      this.load.image(`blocks${index+1}`, level.tileset);
+    }, this);
   }
 
   create() {

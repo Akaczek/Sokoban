@@ -12,25 +12,16 @@ export class Sokoban extends Phaser.Scene {
 
   constructor() {
     super("Sokoban");
-    this.chosenLevel = 0;
+    this.chosenLevel = 1;
   }
 
-  init(data: { level: number }) {
-    this.chosenLevel = data.level;
-  }
-
-  preload() {
-    this.load.tilemapTiledJSON("map", levels[this.chosenLevel].map);
-    this.load.image("blocks", levels[this.chosenLevel].tileset);
-  }
-
-  create() {
+  create(data: { level: number }) {
     this.eventEmitter = new Phaser.Events.EventEmitter();
 
     // load map
-    this.map = this.make.tilemap({ key: "map" });
+    this.map = this.make.tilemap({ key: `map${data.level}` });
     const tiles = this.map.addTilesetImage("tiles");
-    const picture = this.map.addTilesetImage("blocks");
+    const picture = this.map.addTilesetImage(`blocks${data.level}`);
     if (tiles && picture) {
       this.mapLayer = this.map.createLayer("map", tiles);
       this.blocksColoredLayer = this.map.createLayer("blocks_colored", picture);
@@ -87,6 +78,10 @@ export class Sokoban extends Phaser.Scene {
 
     EventBus.on('restart-game', () => {
       this.scene.restart();
+    });
+
+    EventBus.on('restartFromWin', () => {
+      this.scene.stop();
     });
 
     // camera setting

@@ -73,11 +73,11 @@
     {
       "columns": 2,
       "firstgid": 1,
-      "image": "assets\/tiles\/pzl01.png",
+      "image": "assets\/tiles\/pzl.png",
       "imageheight": 64,
       "imagewidth": 64,
       "margin": 0,
-      "name": "blocks1",
+      "name": "blocks4",
       "spacing": 0,
       "tilecount": 4,
       "tileheight": 32,

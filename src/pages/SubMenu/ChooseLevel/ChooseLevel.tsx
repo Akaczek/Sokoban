@@ -11,7 +11,7 @@ const ChooseLevel: FC = () => {
 
   const startGame = () => {
     setPhase("during-game");
-    EventBus.emit("start-game", level - 1);
+    EventBus.emit("start-game", level);
   };
 
   return (

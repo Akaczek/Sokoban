@@ -13,6 +13,7 @@ export const checkWin = (map: Phaser.Tilemaps.Tilemap) => {
       const x = firstTile.x + (i % columns);
       const y = firstTile.y + (Math.floor(i / rows));
       const tile = map.getTileAt(x, y, false, 'blocks_colored')
+      console.log(tile);
       if (!tile) {
         isWin = false;
       }
