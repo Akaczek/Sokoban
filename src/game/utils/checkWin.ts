@@ -9,13 +9,12 @@ export const checkWin = (map: Phaser.Tilemaps.Tilemap) => {
   let isWin = true;
 
   if (numberOfTiles && firstTile && columns && rows) {
-    for (let i = 0; i < numberOfTiles; i++) {
-      const x = firstTile.x + (i % columns);
-      const y = firstTile.y + (Math.floor(i / rows));
-      const tile = map.getTileAt(x, y, false, 'blocks_colored')
-      console.log(tile);
-      if (!tile) {
-        isWin = false;
+    for (let column = 0; column < columns; column++) {
+      for (let row = 0; row < rows; row++) {
+        const tile = map.getTileAt(firstTile.x + column, firstTile.y + row, false, 'blocks_colored')
+        if(!tile) {
+          isWin = false;
+        }
       }
     }
   }
