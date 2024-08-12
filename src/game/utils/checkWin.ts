@@ -4,7 +4,7 @@ export const checkWin = (map: Phaser.Tilemaps.Tilemap) => {
   const columns = colored_blocks_layer?.tilemapLayer.tileset[0].columns;
   const rows = colored_blocks_layer?.tilemapLayer.tileset[0].rows;
   const numberOfTiles = colored_blocks_layer?.tilemapLayer.tileset[0].total;
-  const firstTile = map.findByIndex(1, 0, false, 'blocks_colored');
+  const firstTile = map.findByIndex(2, 0, false, 'blocks_colored');
 
   let isWin = true;
 

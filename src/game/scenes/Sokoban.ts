@@ -1,5 +1,4 @@
 import { move } from "../utils/move";
-import levels from '../assets/maps';
 import { checkWin } from "../utils/checkWin";
 import { EventBus } from '../EventBus';
 

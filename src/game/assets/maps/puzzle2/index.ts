@@ -1,4 +1,5 @@
-import map from './mapa.json';
+
+import map from './map.json';
 import tileset from './pzl.png';
 
 export default {

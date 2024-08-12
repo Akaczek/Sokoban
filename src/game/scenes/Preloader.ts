@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
 import { tileset } from "../assets/imgs";
-import levels from '../assets/maps';
+import levels from '../assets/maps'
 
 export class Preloader extends Scene {
   constructor() {
