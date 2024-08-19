@@ -6,9 +6,12 @@ export class Win extends Phaser.Scene {
     super("Win");
   }
 
-  create() {
+  create(data: { level: number }) {
     this.cameras.main.setBackgroundColor(theme.color.honeydew);
     this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
+    const { width, height } = this.scale;
+  const picture = this.add.image(width / 2, height / 2 + 100, `blocks${data.level}`);
+  picture.setOrigin(0.5, 0.5);
 
     const winText = this.add.text(400, 300, "You Win!", {
       fontSize: "100px",
