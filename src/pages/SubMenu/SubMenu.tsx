@@ -7,7 +7,8 @@ import { SubMenuContainer, DeadlockWarning } from "./SubMenu.styles";
 import { EventBus } from '../../game/EventBus';
 
 const SubMenu: FC = () => {
-  const { phase, setPhase } = useContext(PhaseContext);
+  const { phase } = useContext(PhaseContext);
+  const [level, setLevel] = useState(1);
   const [showDeadlock, setShowDeadlock] = useState(false);
 
   EventBus.on('deadlock', () => {
@@ -19,14 +20,19 @@ const SubMenu: FC = () => {
   });
 
   EventBus.on('restartFromWin', () => {
-    setPhase("main-menu");
+    setLevel(level + 1);
   });
 
   return (
     <SubMenuContainer>
       {showDeadlock && <DeadlockWarning>Deadlock detected</DeadlockWarning>}
-      {phase === "main-menu" && <ChooseLevel />}
-      {phase === "during-game" && <DuringGame />}
+      {phase === "main-menu" && <ChooseLevel
+        level={level}
+        setLevel={setLevel}
+      />}
+      {phase === "during-game" && <DuringGame
+        level={level}
+      />}
     </SubMenuContainer>
   );
 };

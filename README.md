@@ -1,6 +1,6 @@
 # Puzzle Sokoban
 
-It's a mix betwenn classic Sokban game and puzzles.
+It's a mix betwenn classic Sokoban game and puzzles.
 
 ## Phaser React TypeScript Template
 

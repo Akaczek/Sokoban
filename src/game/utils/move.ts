@@ -34,14 +34,11 @@ export const move = (
     "blocks_colored"
   );
 
-  console.log(nextTileOnColored);
-
   if (nextTile && nextTileOnColored && player) {
     if (
       nextTileOnColored.index === OBJECTS_MAPPING.empty &&
       nextTile.index === OBJECTS_MAPPING.empty
     ) {
-      console.log("move1 ");
       map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y);
       map.putTileAt(
         OBJECTS_MAPPING.player,
@@ -68,7 +65,6 @@ export const move = (
       nextNextTile?.index === OBJECTS_MAPPING.empty &&
       nextTileOnColored.index > OBJECTS_MAPPING.block
     ) {
-      console.log("move2 ");
       map.putTileAt(OBJECTS_MAPPING.empty, player.x, player.y, true, "map");
       map.putTileAt(
         OBJECTS_MAPPING.player,

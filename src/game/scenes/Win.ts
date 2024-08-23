@@ -1,5 +1,6 @@
 import { theme } from "../../theme/theme";
 import { EventBus } from '../EventBus';
+import maps from '../assets/maps';
 
 export class Win extends Phaser.Scene {
   constructor() {
@@ -40,14 +41,22 @@ export class Win extends Phaser.Scene {
 
     restartText.setInteractive();
     restartText.on("pointerdown", () => {
-      this.scene.start("MainMenu");
       EventBus.emit('restartFromWin');
+      if (data.level > maps.length - 1) {
+        this.scene.start("RestartBrowser");
+        return;
+      }
+      this.scene.start("Sokoban", { level: data.level + 1 });
     });
 
     if (this.input.keyboard) {
       this.input.keyboard.once("keydown-SPACE", () => {
-        this.scene.start("MainMenu");
         EventBus.emit('restartFromWin');
+        if (data.level > maps.length - 1) {
+          this.scene.start("RestartBrowser");
+          return;
+        }
+        this.scene.start("Sokoban", { level: data.level + 1});
       });
     }
   }

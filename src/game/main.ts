@@ -2,6 +2,7 @@ import { Boot } from "./scenes/Boot";
 import { GameOver } from "./scenes/GameOver";
 import { MainMenu } from "./scenes/MainMenu";
 import { Sokoban } from "./scenes/Sokoban";
+import { RestartBrowser } from './scenes/RestartBrowser';
 import { AUTO, Game } from "phaser";
 import { Preloader } from "./scenes/Preloader";
 import { Win } from "./scenes/Win";
@@ -17,7 +18,7 @@ const config: Phaser.Types.Core.GameConfig = {
     width: 1000,
     height: 1000,
   },
-  scene: [Boot, Preloader, MainMenu, GameOver, Sokoban, Win],
+  scene: [Boot, Preloader, MainMenu, GameOver, Sokoban, Win, RestartBrowser],
 };
 
 const StartGame = (parent: string) => {

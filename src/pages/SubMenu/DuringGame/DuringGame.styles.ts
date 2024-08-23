@@ -17,6 +17,12 @@ export const Title = styled.h1`
   white-space: nowrap;
 `;
 
+export const SubTitle = styled.h2`
+  font-size: 16px;
+  color: ${({ theme }) => theme.color.primaryBlue};
+  white-space: nowrap;
+`;
+
 export const ControlsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);

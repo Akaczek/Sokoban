@@ -7,7 +7,6 @@ import pzl6 from './puzzle6';
 import pzl7 from './puzzle7';
 import pzl8 from './puzzle8';
 import pzl9 from './puzzle9';
-import pzl10 from './puzzle10';
 
 export default [
   pzl1,
@@ -19,5 +18,4 @@ export default [
   pzl7,
   pzl8,
   pzl9,
-  pzl10,
 ];

@@ -6,10 +6,16 @@ import {
   ControlsContainer,
   ControlButton,
   Title,
+  SubTitle,
 } from "./DuringGame.styles";
 import { EventBus } from "../../../game/EventBus";
 
-const DuringGame: FC = () => {
+const DuringGame: FC<{
+  level: number;
+}
+> = ({
+  level,
+}) => {
   const { setPhase } = useContext(PhaseContext);
 
   const move = (direction: string) => {
@@ -24,6 +30,7 @@ const DuringGame: FC = () => {
   return (
     <>
       <Title>Soko-puzzle</Title>
+      <SubTitle>Level {level}</SubTitle>
       <ControlsContainer>
         <ControlButton direction="left" onClick={() => move("left")}>
           Left

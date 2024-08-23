@@ -1,13 +1,15 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useContext } from 'react';
 
 import levels from '../../../game/assets/maps';
 import { PhaseContext } from '../../../libs/context/usePhase';
 import { ChooseLevelTitle, ChooseLevelButton, ChangeContainer, ChangeLevelButton, LevelNumber } from './ChooseLevel.styles';
 import { EventBus } from '../../../game/EventBus';
 
-const ChooseLevel: FC = () => {
+const ChooseLevel: FC<{
+  level: number;
+  setLevel: (level: number) => void;
+}> = ({ level, setLevel }) => {
   const { setPhase } = useContext(PhaseContext);
-  const [level, setLevel] = useState(1);
 
   const startGame = () => {
     setPhase("during-game");
@@ -25,7 +27,7 @@ const ChooseLevel: FC = () => {
       <ChooseLevelButton onClick={startGame}>Start Game</ChooseLevelButton>
     </>
   );
-}
+};
 
 export default ChooseLevel;
 
