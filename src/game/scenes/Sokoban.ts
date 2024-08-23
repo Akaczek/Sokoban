@@ -67,6 +67,7 @@ export class Sokoban extends Phaser.Scene {
 
     this.eventEmitter.on("checkWin", () => {
       if (checkWin(this.map)) {
+        EventBus.emit('win', { level: data.level });
         this.scene.start("Win", { level: data.level });
       }
     });
